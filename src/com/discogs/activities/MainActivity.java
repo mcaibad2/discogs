@@ -127,6 +127,12 @@ public class MainActivity extends Activity {
         }
     }
 
+    @Override
+    public boolean onSearchRequested() {
+        // startActivity(new Intent(this, SearchActivity.class));
+        return super.onSearchRequested();
+    }
+
     /* The click listner for ListView in the navigation drawer */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override

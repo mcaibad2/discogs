@@ -3,17 +3,13 @@
           android:versionCode="1"
           android:versionName="1.0">
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:label="@string/app_name"
             android:icon="@drawable/ic_launcher"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-
-        <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".activities.SearchableActivity" >
-        </meta-data>
-
-
         <activity
                 android:name=".activities.MainActivity"
                 android:label="@string/app_name">
@@ -23,16 +19,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.SearchActivity" android:label="Search"
-                  android:parentActivityName="com.discogs.activities.MainActivity" android:launchMode="singleTop">
+                  android:parentActivityName="com.discogs.activities.MainActivity" android:launchMode="singleInstance"
+                  android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.discogs.activities.MainActivity"/>
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
             <meta-data
                     android:name="android.app.searchable"
-                    android:resource="@xml/searchable" />
+                    android:resource="@xml/searchable"/>
         </activity>
     </application>
 </manifest>

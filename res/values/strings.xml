@@ -22,10 +22,18 @@
         <item>Scan</item>
         <item>Search</item>
     </string-array>
+    <string-array name="search_type_array">
+        <item>All</item>
+        <item>Release</item>
+        <item>Master</item>
+        <item>Artist</item>
+        <item>Label</item>
+    </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="search_label">Search</string>
-    <string name="search_hint">Search artists, albums or labels</string>
+    <string name="search_type_label">Type</string>
+    <string name="search_hint">Search...</string>
 </resources>
