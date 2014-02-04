@@ -35,13 +35,13 @@ public class JSONHelper
      * Database
      ************/
 
-    public List<Result> getResults(String json)
+    public List<Result> getResults(JSONObject jsonObject)
     {
         List<Result> results = new ArrayList<Result>();
 
         try
         {
-            JSONObject jsonObject = new JSONObject(json);
+            // JSONObject jsonObject = new JSONObject(json);
             JSONArray resultsJsonArray = jsonObject.getJSONArray("results");
 
             for (int i = 0; i < resultsJsonArray.length(); i++)
