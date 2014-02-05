@@ -84,13 +84,11 @@ public class JSONHelper
                     result.setFormats(formats);
                 }
 
-                if (resultJsonObject.has("label"))
-                {
-                    result.setLabel(resultJsonObject.getString("label"));
+                if (resultJsonObject.has("label")) {
+                    result.setLabel(StringUtils.replace(StringUtils.remove(resultJsonObject.getString("label"), "\""), ",", ", "));
                 }
 
-                if (resultJsonObject.has("resource_url"))
-                {
+                if (resultJsonObject.has("resource_url")) {
                     result.setResourceUrl(resultJsonObject.getString("resource_url"));
                 }
 

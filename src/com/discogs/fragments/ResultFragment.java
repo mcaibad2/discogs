@@ -8,9 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -35,6 +33,10 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
     private Button previousButton;
     private Button nextButton;
     private SearchActivity mCallback;
+    private View emptyTextView;
+    private TextView indexTextView;
+    private ProgressBar progressBar;
+    private ListView listView;
 
     @Override
     public void onAttach(Activity activity) {
@@ -53,10 +55,18 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
         nextButton = (Button) view.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(this);
         buttonsView = view.findViewById(R.id.buttonsView);
+        emptyTextView = view.findViewById(R.id.emptyTextView);
+        indexTextView = (TextView) view.findViewById(R.id.indexTextView);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        listView = (ListView) view.findViewById(R.id.listView);
         return view;
     }
 
     public void search(String url) {
+        emptyTextView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.GONE);
+        indexTextView.setVisibility(View.GONE);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -64,6 +74,11 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
                     try {
                         JSONObject pagination = response.getJSONObject("pagination");
                         Log.d("Discogs", pagination.toString());
+                        int page = pagination.getInt("page");
+                        int items = pagination.getInt("items");
+                        int perPage = pagination.getInt("per_page");
+                        indexTextView.setText(String.valueOf(page*perPage - perPage + 1) + " - " + String.valueOf(page*perPage) + " of " + String.valueOf(items));
+                        indexTextView.setVisibility(View.VISIBLE);
                         JSONObject urls = pagination.getJSONObject("urls");
                         if (urls.has("prev")) {
                             prev = urls.getString("prev");
@@ -90,13 +105,20 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
                 }
                 JSONHelper jsonHelper = new JSONHelper();
                 List<Result> results = jsonHelper.getResults(response);
-                ListView listView = (ListView) getView().findViewById(R.id.listView);
                 listView.setAdapter(new SearchResultsAdapter(getActivity(), results));
+                listView.setVisibility(View.VISIBLE);
+                if (results == null || results.size() == 0) {
+                    emptyTextView.setVisibility(View.VISIBLE);
+                } else {
+                    emptyTextView.setVisibility(View.GONE);
+                }
+                progressBar.setVisibility(View.GONE);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getActivity(), "Network error", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
             }
         }
         );

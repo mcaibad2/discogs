@@ -13,10 +13,10 @@ import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.Toast;
 import com.discogs.R;
 import com.discogs.fragments.ResultFragment;
+import org.apache.commons.lang.StringUtils;
 
 public class SearchActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, ActionBar.TabListener {
     private SearchView mSearchView;
@@ -31,12 +31,10 @@ public class SearchActivity extends ActionBarActivity implements SearchView.OnQu
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_search);
 
-        getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
         getSupportActionBar().addTab(getSupportActionBar().newTab().setText("All").setTabListener(this));
         getSupportActionBar().addTab(getSupportActionBar().newTab().setText("Release").setTabListener(this));
         getSupportActionBar().addTab(getSupportActionBar().newTab().setText("Master").setTabListener(this));
@@ -79,11 +77,23 @@ public class SearchActivity extends ActionBarActivity implements SearchView.OnQu
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
             if (!TextUtils.isEmpty(query) && query.length() > 2) {
-                allResultFragment.search("http://api.discogs.com/database/search?q=" + query);
-                releaseResultFragment.search("http://api.discogs.com/database/search?q=" + query + "&type=release");
-                masterResultFragment.search("http://api.discogs.com/database/search?q=" + query + "&type=master");
-                artistResultFragment.search("http://api.discogs.com/database/search?q=" + query + "&type=artist");
-                labelResultFragment.search("http://api.discogs.com/database/search?q=" + query + "&type=label");
+                getActionBar().setTitle("Search: " + query);
+                getActionBar().setSelectedNavigationItem(0);
+
+                String replace = StringUtils.replace(query, " ", "+");
+                allResultFragment.search("http://api.discogs.com/database/search?q=" + replace);
+                releaseResultFragment.search("http://api.discogs.com/database/search?q=" + replace + "&type=release");
+                masterResultFragment.search("http://api.discogs.com/database/search?q=" + replace + "&type=master");
+                artistResultFragment.search("http://api.discogs.com/database/search?q=" + replace + "&type=artist");
+                labelResultFragment.search("http://api.discogs.com/database/search?q=" + replace + "&type=label");
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.show(allResultFragment);
+                transaction.hide(releaseResultFragment);
+                transaction.hide(masterResultFragment);
+                transaction.hide(artistResultFragment);
+                transaction.hide(labelResultFragment);
+                transaction.commit();
             } else {
                 Toast.makeText(this, "Query is empty", Toast.LENGTH_SHORT).show();
             }
@@ -111,14 +121,6 @@ public class SearchActivity extends ActionBarActivity implements SearchView.OnQu
         mSearchView.setIconified(false);
         mSearchView.setOnQueryTextListener(this);
         return true;
-    }
-
-    public void showProgress() {
-        setSupportProgressBarIndeterminateVisibility(true);
-    }
-
-    public void hideProgress() {
-        setSupportProgressBarIndeterminateVisibility(false);
     }
 
     public void showTabs() {
