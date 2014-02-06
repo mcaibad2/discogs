@@ -18,7 +18,7 @@ import com.discogs.R;
 import com.discogs.fragments.ResultFragment;
 import org.apache.commons.lang.StringUtils;
 
-public class SearchActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, ActionBar.TabListener {
+public class SearchActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, ActionBar.TabListener, ResultFragment.OnListItemtClickedListener {
     private SearchView mSearchView;
     private MenuItem searchItem;
     private String query;
@@ -42,22 +42,22 @@ public class SearchActivity extends ActionBarActivity implements SearchView.OnQu
         getSupportActionBar().addTab(getSupportActionBar().newTab().setText("Label").setTabListener(this));
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        allResultFragment = new ResultFragment();
+        allResultFragment = new ResultFragment(this);
         transaction.add(R.id.mainLayout, allResultFragment, "all");
 
-        releaseResultFragment = new ResultFragment();
+        releaseResultFragment = new ResultFragment(this);
         transaction.add(R.id.mainLayout, releaseResultFragment, "release");
         transaction.hide(releaseResultFragment);
 
-        masterResultFragment = new ResultFragment();
+        masterResultFragment = new ResultFragment(this);
         transaction.add(R.id.mainLayout, masterResultFragment, "master");
         transaction.hide(masterResultFragment);
 
-        artistResultFragment = new ResultFragment();
+        artistResultFragment = new ResultFragment(this);
         transaction.add(R.id.mainLayout, artistResultFragment, "artist");
         transaction.hide(artistResultFragment);
 
-        labelResultFragment = new ResultFragment();
+        labelResultFragment = new ResultFragment(this);
         transaction.add(R.id.mainLayout, labelResultFragment, "label");
         transaction.hide(labelResultFragment);
 
@@ -149,7 +149,6 @@ public class SearchActivity extends ActionBarActivity implements SearchView.OnQu
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
         if (wasCreated == false) {
             return;
         }
@@ -203,5 +202,12 @@ public class SearchActivity extends ActionBarActivity implements SearchView.OnQu
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    public void onListItemClicked(String url, String type) {
+        Intent intent = new Intent(this, ReleaseActivity.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
     }
 }

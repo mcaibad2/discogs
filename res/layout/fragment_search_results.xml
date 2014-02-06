@@ -3,18 +3,9 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-    <TextView
-            android:id="@+id/emptyTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No data" android:layout_centerInParent="true"
-            android:textStyle="bold" android:textSize="16sp" android:visibility="gone"/>
-    <ProgressBar android:id="@+id/progressBar" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                 android:visibility="gone"
-                 android:layout_centerInParent="true" android:layout_marginBottom="50dp"/>
     <LinearLayout android:id="@+id/buttonsView" android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:background="@android:color/background_dark" android:visibility="gone"
-                  android:layout_alignParentBottom="true" android:orientation="vertical">
+                  android:orientation="vertical" android:layout_alignParentBottom="true">
         <TextView android:id="@+id/indexTextView" android:layout_width="wrap_content"
                   android:layout_height="wrap_content" android:textStyle="bold" android:textSize="12sp"
                   android:textColor="@android:color/primary_text_dark" android:layout_marginLeft="5dp"
@@ -22,13 +13,26 @@
         <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:paddingTop="5dp"
                       android:paddingBottom="5dp">
-            <Button android:id="@+id/previousButton" android:layout_width="0dp" android:layout_height="35dp"
+            <Button android:id="@+id/previousButton" android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="Previous" style="@android:style/Widget.Button.Small"/>
-            <Button android:id="@+id/nextButton" android:layout_width="0dp" android:layout_height="35dp"
+            <Button android:id="@+id/nextButton" android:layout_width="0dp" android:layout_height="wrap_content"
                     android:layout_weight="1" android:text="Next" style="@android:style/Widget.Button.Small"
                     />
         </LinearLayout>
     </LinearLayout>
-    <ListView android:id="@+id/listView" android:layout_width="fill_parent" android:layout_height="fill_parent"
-              android:layout_above="@id/buttonsView"/>
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                    android:layout_above="@id/buttonsView">
+        <TextView
+                android:id="@+id/emptyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No data" android:layout_centerInParent="true"
+                android:textStyle="bold" android:textSize="16sp" android:visibility="gone"/>
+        <ProgressBar android:id="@+id/progressBar" android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:visibility="gone"
+                     android:layout_centerInParent="true"/>
+        <ListView android:id="@+id/listView" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
 </RelativeLayout>

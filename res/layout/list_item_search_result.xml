@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent" android:padding="7dp" android:orientation="vertical">
+              android:layout_height="match_parent" android:padding="10dp" android:orientation="vertical">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/titleTextView" android:textStyle="bold" android:textSize="16sp"/>
+            android:id="@+id/titleTextView" android:textStyle="bold"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/labelTextView"
-            android:textSize="14sp" android:singleLine="true"/>
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small" android:singleLine="true"/>
     <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
                       android:orientation="vertical">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/catTextView" android:textSize="12sp"/>
+                    android:id="@+id/catTextView"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/formatTextView" android:textSize="12sp"/>
+                    android:id="@+id/formatTextView"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"/>
         </LinearLayout>
         <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:orientation="vertical">
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
                     android:id="@+id/countryTextView" android:gravity="right"/>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
                     android:id="@+id/yearTextView" android:textStyle="bold" android:gravity="right"
                     />
         </LinearLayout>

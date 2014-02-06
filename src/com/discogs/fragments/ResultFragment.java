@@ -25,7 +25,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class ResultFragment extends Fragment implements View.OnClickListener {
+public class ResultFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
     private String query;
     private String prev;
     private String next;
@@ -37,6 +37,18 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
     private TextView indexTextView;
     private ProgressBar progressBar;
     private ListView listView;
+    private OnListItemtClickedListener listener;
+
+    public interface OnListItemtClickedListener {
+        public void onListItemClicked(String url, String type);
+    }
+
+    public ResultFragment() {
+    }
+
+    public ResultFragment(OnListItemtClickedListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -59,6 +71,7 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
         indexTextView = (TextView) view.findViewById(R.id.indexTextView);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         listView = (ListView) view.findViewById(R.id.listView);
+        listView.setOnItemClickListener(this);
         return view;
     }
 
@@ -138,5 +151,13 @@ public class ResultFragment extends Fragment implements View.OnClickListener {
                 search(prev);
             }
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        SearchResultsAdapter searchResultsAdapter = (SearchResultsAdapter) parent.getAdapter();
+        Result item = searchResultsAdapter.getItem(position);
+        String url = item.getResourceUrl();
+        listener.onListItemClicked(url, "release");
     }
 }

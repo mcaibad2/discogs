@@ -1,29 +1,13 @@
 package com.discogs.json;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.discogs.model.*;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.discogs.model.Alias;
-import com.discogs.model.Artist;
-import com.discogs.model.BasicInformation;
-import com.discogs.model.Field;
-import com.discogs.model.Folder;
-import com.discogs.model.Format;
-import com.discogs.model.Image;
-import com.discogs.model.Label;
-import com.discogs.model.Master;
-import com.discogs.model.MasterRelease;
-import com.discogs.model.Profile;
-import com.discogs.model.Release;
-import com.discogs.model.Result;
-import com.discogs.model.Track;
-import com.discogs.model.Video;
-import com.discogs.model.Want;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JSON parser helper class 
@@ -708,13 +692,12 @@ public class JSONHelper
         return releases;
     }
 
-    public Release getRelease(String json)
+    public Release getRelease(JSONObject jsonObject)
     {
         Release release = new Release();
 
         try
         {
-            JSONObject jsonObject = new JSONObject(json);
             release.setId(jsonObject.getLong("id"));
             release.setTitle(jsonObject.getString("title"));
             release.setResourceUrl(jsonObject.getString("resource_url"));
