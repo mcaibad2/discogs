@@ -16,23 +16,25 @@ package com.discogs.activities;
  * limitations under the License.
  */
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.*;
 import android.widget.*;
 import com.discogs.R;
+import com.discogs.fragments.CollectionFragment;
+import com.discogs.fragments.WantlistFragment;
 
 import java.util.Locale;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -142,24 +144,19 @@ public class MainActivity extends Activity {
     }
 
     private void selectItem(int position) {
-
-
-
-        if (position == 3) {
+        if (position == 0) {
+            CollectionFragment collectionFragment = new CollectionFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_frame, collectionFragment, "CollectionFragment").commit();
+        } else if (position == 1) {
+            WantlistFragment wantlistFragment = new WantlistFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_frame, wantlistFragment, "WantlistFragment").commit();
+        } else if (position == 2) {
+            Toast.makeText(this, "Scan intent", Toast.LENGTH_SHORT).show();
+        } else if (position == 3) {
             startActivity(new Intent(this, SearchActivity.class));
-        } else {
-            // update the main content by replacing fragments
-            Fragment fragment = new PlanetFragment();
-            Bundle args = new Bundle();
-            args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-            fragment.setArguments(args);
-
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         }
-
-
-
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
         setTitle(mPlanetTitles[position]);

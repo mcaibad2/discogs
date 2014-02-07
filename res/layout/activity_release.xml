@@ -71,7 +71,7 @@
             </TableLayout>
             <TextView android:id="@+id/imagesHeader" android:text="Images"
                       android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:padding="5dp" android:background="@color/separator"
+                      android:padding="10dp" android:background="@color/separator"
                       android:textStyle="bold" android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
             <Gallery android:id="@+id/gallery" android:layout_width="fill_parent"
                      android:layout_height="wrap_content"/>
@@ -83,21 +83,21 @@
                          android:padding="5dp"/>
             <TextView android:id="@+id/notesHeader" android:text="Notes"
                       android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:padding="5dp" android:background="@color/separator"
+                      android:padding="10dp" android:background="@color/separator"
                       android:textStyle="bold" android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
             <TextView android:id="@+id/notesTextView"
                       android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:padding="5dp"/>
             <TextView android:id="@+id/companiesHeader" android:text="Companies"
                       android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:padding="5dp" android:background="@color/separator"
+                      android:padding="10dp" android:background="@color/separator"
                       android:textStyle="bold" android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
             <TextView android:id="@+id/companiesTextView"
                       android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:padding="5dp"/>
             <TextView android:id="@+id/videosHeader" android:text="Videos"
                       android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:padding="5dp" android:background="@color/separator"
+                      android:padding="10dp" android:background="@color/separator"
                       android:textStyle="bold" android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
             <LinearLayout android:id="@+id/videosLayout"
                           android:layout_width="fill_parent" android:layout_height="wrap_content"
