@@ -7,14 +7,20 @@ import android.support.v4.util.LruCache;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.discogs.Constants;
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 public class VolleySingleton {
     private static VolleySingleton mInstance = null;
+    private RequestQueue mSignedRequestQueue;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
     private VolleySingleton(Context context){
         mRequestQueue = Volley.newRequestQueue(context);
+        OAuthConsumer mOAuthConsumer = new CommonsHttpOAuthConsumer(Constants.CONSUMER_KEY, Constants.CONSUMER_SECRET);
+        mSignedRequestQueue = Volley.newRequestQueue(context, new OAuthStack(mOAuthConsumer));
         mImageLoader = new ImageLoader(this.mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
             public void putBitmap(String url, Bitmap bitmap) {
@@ -33,12 +39,15 @@ public class VolleySingleton {
         return mInstance;
     }
 
-    public RequestQueue getRequestQueue(){
+    public RequestQueue getRequestQueue() {
         return this.mRequestQueue;
     }
 
-    public ImageLoader getImageLoader(){
-        return this.mImageLoader;
+    public RequestQueue getSignedRequestQueue() {
+        return mSignedRequestQueue;
     }
 
+    public ImageLoader getImageLoader() {
+        return this.mImageLoader;
+    }
 }

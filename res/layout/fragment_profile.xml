@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:padding="20dp">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:text="User name:"
+                  android:textStyle="bold"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/usernameTextView" android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp">
+        <TextView android:text="Name:"
+                  android:textStyle="bold"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/nameTextView" android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+                  android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp">
+        <TextView android:text="Profile:"
+                  android:textStyle="bold"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/profileTextView" android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+                  android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp">
+        <TextView android:text="Homepage:"
+                  android:textStyle="bold"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/homepageTextView" android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+                  android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp">
+        <TextView android:text="Location:"
+                  android:textStyle="bold"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/locationTextView" android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+                  android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp">
+        <TextView android:text="Registered:"
+                  android:textStyle="bold"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/registeredTextView" android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+                  android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+</LinearLayout>

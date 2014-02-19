@@ -422,13 +422,12 @@ public class JSONHelper
      * Wantlist
      *************/
 
-    public List<Want> listReleasesInWantlist(String json)
+    public List<Want> listReleasesInWantlist(JSONObject jsonObject)
     {
         List<Want> wants = new ArrayList<Want>();
 
         try
         {
-            JSONObject jsonObject = new JSONObject(json);
             JSONArray wantsJsonArray = jsonObject.getJSONArray("wants");
 
             for (int i = 0; i < wantsJsonArray.length(); i++)

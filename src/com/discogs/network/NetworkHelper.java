@@ -1,50 +1,59 @@
 package com.discogs.network;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import com.discogs.Constants;
+import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class NetworkHelper {
-    public static String doHTTPGet(String spec) {
-        String response = null;
-        HttpURLConnection urlConnection = null;
-        try {
-            URL url = new URL(spec);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("User-Agent", "Discogs/1.0 +http://daskasworld.appspot.com/");
-            InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
-            int status = urlConnection.getResponseCode();
-            Log.d("Discogs", String.valueOf(status));
-            response = readStream(inputStream);
-            Log.d("Discogs", response);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (urlConnection != null)
-                urlConnection.disconnect();
+    private DefaultHttpClient httpClient = new DefaultHttpClient();
+    private CommonsHttpOAuthConsumer mOAuthConsumer;
+
+    public NetworkHelper(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String token = preferences.getString("token", null);
+        String tokenSecret = preferences.getString("token_secret", null);
+        if (token != null && tokenSecret != null) {
+            CommonsHttpOAuthConsumer mOAuthConsumer = new CommonsHttpOAuthConsumer(Constants.CONSUMER_KEY, Constants.CONSUMER_SECRET);
+            mOAuthConsumer.setTokenWithSecret(token, tokenSecret);
+            this.mOAuthConsumer = mOAuthConsumer;
         }
-        return response;
     }
 
-    private static String readStream(InputStream is) {
+    public String doHTTPGet(String url) {
+        String response = null;
+        HttpGet hTTPGet = new HttpGet(url);
         try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            int i = is.read();
-            while(i != -1) {
-                bo.write(i);
-                i = is.read();
+            if (mOAuthConsumer != null) {
+                mOAuthConsumer.sign(hTTPGet);
             }
-            return bo.toString();
+            HttpResponse hTTPResponse = httpClient.execute(hTTPGet);
+            response = EntityUtils.toString(hTTPResponse.getEntity());
+            Log.d("Discogs", "Response: " + response);
+        } catch (OAuthMessageSignerException e) {
+            e.printStackTrace();
+        } catch (OAuthExpectationFailedException e) {
+            e.printStackTrace();
+        } catch (OAuthCommunicationException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
         } catch (IOException e) {
-            return "";
+            e.printStackTrace();
         }
+        Log.d("Discogs", "Response: " + response);
+        return response;
     }
 }

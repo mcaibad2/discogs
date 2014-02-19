@@ -11,6 +11,7 @@ public class CollectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_collection, container, false);
+        view.findViewById(R.id.loginButton);
         return view;
     }
 }
